@@ -1,18 +1,24 @@
 const inp = document.getElementById("inp") as HTMLInputElement;
 const btnCont = document.querySelector(".buttonCont") as HTMLElement;
 
+let boolEval = false;
 function calculatorFunc(e: MouseEvent): void {
   const target = e.target as HTMLElement;
   let str: string = String(inp.value);
   let checkDataType: number = Number(target.innerText);
 
-  if (target.id === "btn" && !isNaN(checkDataType)) {
+  if (boolEval && !isNaN(checkDataType)) {
+    inp.value = "";
+    boolEval = false;
+  }
+  if (target.id === "btn" && !isNaN(checkDataType)) {// in this condition first i want number not operator that means if user try to type operator first then i doesn't happen's but if user write a number first then i will print in the input value
     let val = target.innerText;
     inp.value += val;
     console.log(val);
-  } else if (!isNaN(Number(str[str.length - 1]))) {
+  } else if (!isNaN(Number(str[str.length - 1]))) { //in this condition we say if last digit of input values is number then add operator in the input list else dont add operator bcz we have already a opertor at the end then why we want
     if (target.id === "btn") {
       let val = target.innerText;
+      console.log(val);
       inp.value += val;
     }
   }
@@ -24,6 +30,7 @@ function calculatorFunc(e: MouseEvent): void {
       let value: string = inp.value.slice(0, -1);
       try {
         inp.value = eval(value);
+        boolEval = true;
       } catch (error) {
         inp.value = "";
         throw new Error("calculation failed");
@@ -39,5 +46,3 @@ function calculatorFunc(e: MouseEvent): void {
 btnCont.addEventListener("click", (e: MouseEvent) => {
   calculatorFunc(e as MouseEvent);
 });
-
-
