@@ -1,7 +1,7 @@
 const inp = document.getElementById("inp") as HTMLInputElement;
 const btnCont = document.querySelector(".buttonCont") as HTMLElement;
 
-let returnedEval = false;
+let boolEval = false;
 function calculatorFunc(e: MouseEvent): void {
   const target = e.target as HTMLElement;
   let str: string = String(inp.value);
@@ -9,7 +9,7 @@ function calculatorFunc(e: MouseEvent): void {
 
   if (boolEval && !isNaN(checkDataType)) {
     inp.value = "";
-    returnedEval = false;
+    boolEval = false;
   }
   if (target.id === "btn" && !isNaN(checkDataType)) {// in this condition first i want number not operator that means if user try to type operator first then i doesn't happen's but if user write a number first then i will print in the input value
     let val = target.innerText;
@@ -30,7 +30,7 @@ function calculatorFunc(e: MouseEvent): void {
       let value: string = inp.value.slice(0, -1);
       try {
         inp.value = eval(value);
-        returnedEval = true;
+        boolEval = true;
       } catch (error) {
         inp.value = "";
         throw new Error("calculation failed");
