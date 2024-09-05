@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card_Generator</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    }
+    #first {
+      margin: 20px;
+      display: grid;
+      justify-content: center;
+      height: 250px;
+      width: 280px;
+      background-color: rgb(255, 255, 255);
+      align-items: center;
+      border-radius: 10px;
+      box-sizing: border-box;
+      box-shadow: 2px 4px 9px 2px rgb(255, 89, 0);
+      color: grey;
+    }
+    .PQCont {
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cardBtnCont {
+      width: 200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    #item {
+      width: 200px;
+      display: flex;
+      justify-content: center;
+    }
+    #deleteBtn,
+    #editBtn {
+      border: none;
+      outline: none;
+      padding: 5px;
+      margin: 10px;
+      border-radius: 10px;
+    }
+    #deleteBtn:hover {
+      background-color: rgb(87, 87, 234);
+      color: aliceblue;
+    }
+    #editBtn:hover {
+      background-color: rgb(87, 87, 234);
+      color: aliceblue;
+    }
+    .inpCont {
+      overflow: scroll;
+      background-color: rgb(192, 193, 193);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      margin: 20px;
+    }
+    .inpCont input {
+      font-size: 20px;
+      border: none;
+      width: fit-content;
+      text-align: center;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      outline: none;
+    }
+    #submitBtn {
+      border: none;
+      padding: 10px;
+      width: 100px;
+      border-radius: 10px;
+      outline: none;
+      background-color: rgb(255, 89, 0);
+      color: white;
+    }
+    #submitBtn:hover {
+      background-color: red;
+    }
+    select {
+      border: none;
+      outline: none;
+      background-color: rgb(255, 89, 0);
+      color: white;
+      border-radius: 10px;
+      width: 30px;
+    }
+    .cardCont {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      align-items: center;
+      margin: auto;
+    }
+    .mainCont {
+      display: grid;
+      align-items: center;
+      margin: 20px;
+    }
+    .editCont {
+      height: fit-content;
+      width: max-content;
+      display: none;
+      align-items: center;
+      text-align: center;
+      background-color: rgb(176, 176, 176);
+      border-radius: 10px;
+      padding: 10px;
+      margin: 20px auto;
+    }
+    .editCont input {
+      font-size: 20px;
+      width: 250px;
+      text-align: center;
+      border: none;
+      padding: 10px;
+      margin: 10px;
+      outline: none;
+      border-radius: 10px;
+    }
+    .editCont button {
+      border: none;
+      margin: 10px;
+      padding: 10px;
+      width: 100px;
+      border-radius: 10px;
+      background-color: rgb(255, 255, 255);
+      color: rgb(85, 86, 86);
+      margin: 10px auto;
+      outline: none;
+    }
+    .editCont button:hover {
+      background-color: rgb(0, 0, 0);
+      color: white;
+      outline: none;
+    }
+  </style>
+
+  <body>
+    <div class="mainCont">
+      <div class="inpCont">
+        <input type="text" id="inpI" placeholder="Enter Item" />
+        <span id="spanItems">
+          <input type="number" id="inpQ" placeholder="Enter Quatitiy" />
+
+          <select name="value" id="selector">
+            <option value="select"></option>
+            <option value="kg">Kg</option>
+            <option value="litre">Litre</option>
+            <option value="piece">Piece</option>
+          </select>
+        </span>
+        <input type="number" id="inpPrice" placeholder="Enter Price" />
+        <button id="submitBtn">Submit</button>
+      </div>
+
+       <div class="editCont">
+      </div> 
+
+      <div class="cardCont">
+
+      </div>
+    </div>
+  </body>
+  <script src="app.js"></script>
+</html>
