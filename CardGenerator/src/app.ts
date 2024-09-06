@@ -52,7 +52,6 @@ function submitFunc(e: MouseEvent) {
     }
     editFunc();
   } else if (target.id === "editSubmit") {
-    console.log(target);
     const editItem = document.querySelector("#editI") as HTMLInputElement;
     const editQuantity = document.querySelector("#editQ") as HTMLInputElement;
     const editPrice = document.querySelector("#editP") as HTMLInputElement;
