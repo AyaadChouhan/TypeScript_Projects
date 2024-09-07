@@ -6,31 +6,31 @@ const inpQuantity = document.getElementById("inpQ");
 const inpPrice = document.getElementById("inpPrice");
 const mainCont = document.querySelector(".mainCont");
 const editCont = document.querySelector(".editCont");
-function createEl(el, id, cls) {
+let targetVal;
+function createEl(el, id = "", cls = "") {
     const createElement = document.createElement(el);
-    createElement.id = id;
-    if (cls) {
+    if (id)
+        createElement.id = id;
+    if (cls)
         createElement.classList.add(cls);
-    }
     return createElement;
 }
 function submitFunc(e) {
-    var _a;
     const target = e.target;
-    const grandParent = (_a = target.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement;
+    const grandParent = target.closest(".outerCardDiv");
     if (target.id === "submitBtn") {
-        const crCard = createEl("div", "first");
-        const crH2 = createEl("h2", "item");
+        const crCard = createEl("div", "", "first");
+        const crH2 = createEl("h2", "", "item");
         const PQCont = createEl("div", "", "PQCont");
-        const priceTag = createEl("h4", "priceTag");
-        const quantityTag = createEl("h4", "quantityTag");
+        const priceTag = createEl("h4", "", "priceTag");
+        const quantityTag = createEl("h4", "", "quantityTag");
         const cardBtnCont = createEl("div", "", "cardBtnCont");
         const deleteBtn = createEl("button", "deleteBtn");
         const editBtn = createEl("button", "editBtn");
-        const outerCardDiv = createEl("div", "outerCardDiv");
-        crH2.innerText = `item : ${inpItem.value}`;
-        priceTag.innerText = `Price : ${inpQuantity.value}`;
-        quantityTag.innerText = `Quantity :  ${inpPrice.value}`;
+        const outerCardDiv = createEl("div", "", "outerCardDiv");
+        crH2.innerText = `Item: ${inpItem.value}`;
+        priceTag.innerText = `Price: ${inpPrice.value}`;
+        quantityTag.innerText = `Quantity: ${inpQuantity.value}`;
         deleteBtn.innerText = "Delete";
         editBtn.innerText = "Edit";
         cardContainer.append(outerCardDiv);
@@ -40,30 +40,48 @@ function submitFunc(e) {
         cardBtnCont.append(deleteBtn, editBtn);
     }
     else if (target.innerText === "Delete") {
-        grandParent.remove();
-        editCont.remove();
+        grandParent === null || grandParent === void 0 ? void 0 : grandParent.remove();
+        if (editCont.style.display === "grid")
+            editCont.style.display = "none";
     }
     else if (target.innerText === "Edit") {
+        targetVal = grandParent;
+        if (!targetVal)
+            return;
         if (editCont.children.length > 0) {
-            editCont.innerHTML = '';
+            editCont.innerHTML = "";
         }
-        editFunc(grandParent);
+        editFunc();
+        const itemEl = targetVal.querySelector(".item");
+        const priceEl = targetVal.querySelector(".priceTag");
+        const quantityEl = targetVal.querySelector(".quantityTag");
+        const currentItem = itemEl ? itemEl.innerText.split(": ")[1] || "" : "";
+        const currentPrice = priceEl ? priceEl.innerText.split(": ")[1] || "" : "";
+        const currentQuantity = quantityEl ? quantityEl.innerText.split(": ")[1] || "" : "";
+        console.log("Editing item:", currentItem, currentPrice, currentQuantity);
+        document.querySelector("#editI").value = currentItem;
+        document.querySelector("#editP").value = currentPrice;
+        document.querySelector("#editQ").value = currentQuantity;
     }
     else if (target.id === "editSubmit") {
-        console.log(target);
-        const editItem = document.querySelector("#editI");
-        const editQuantity = document.querySelector("#editQ");
-        const editPrice = document.querySelector("#editP");
-        const itemTag = grandParent.querySelector("#item");
-        const priceTag = grandParent.querySelector("#priceTag");
-        const quantityTag = grandParent.querySelector("#quantityTag");
-        itemTag.innerText = `Item: ${editItem.value}`;
-        quantityTag.innerText = `Quantity: ${editQuantity.value}`;
-        priceTag.innerText = `Price: ${editPrice.value}`;
-        editCont.remove();
+        const editItem = document.querySelector("#editI").value;
+        const editPrice = document.querySelector("#editP").value;
+        const editQuantity = document.querySelector("#editQ").value;
+        if (targetVal) {
+            const itemTag = targetVal.querySelector(".item");
+            const priceTag = targetVal.querySelector(".priceTag");
+            const quantityTag = targetVal.querySelector(".quantityTag");
+            if (itemTag)
+                itemTag.innerText = `Item: ${editItem}`;
+            if (priceTag)
+                priceTag.innerText = `Price: ${editPrice}`;
+            if (quantityTag)
+                quantityTag.innerText = `Quantity: ${editQuantity}`;
+        }
+        editCont.style.display = "none";
     }
 }
-function editFunc(card) {
+function editFunc() {
     const h4Tag = createEl("h4", "", "");
     const editI = createEl("input", "editI", "");
     const editQ = createEl("input", "editQ", "");
@@ -76,6 +94,9 @@ function editFunc(card) {
     removeBtn.innerText = "❌";
     editCont.append(h4Tag, editI, editQ, editP, subBtn, removeBtn);
     mainCont.append(editCont);
+    removeBtn.addEventListener("click", () => {
+        editCont.style.display = "none";
+    });
 }
 mainCont.addEventListener("click", (e) => {
     submitFunc(e);
